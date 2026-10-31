@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ResearchBridge Solutions provides research guidance, thesis development support, data analysis, coding, and academic editing.">
+<title>ResearchBridge Solutions | Research, made clearer</title>
+<style>
+:root {
+  --site-primary: #153c36;
+  --site-on-primary: #ffffff;
+  --site-secondary: #dce9df;
+  --site-on-secondary: #183d35;
+  --site-background: #f7f8f3;
+  --site-on-background: #172b27;
+  --site-font-body: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --site-font-heading: Georgia, "Times New Roman", serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  --surface: light-dark(#ffffff, #17221f);
+  --surface-soft: light-dark(#eef3ed, #202e29);
+  --muted: light-dark(#5c6c65, #b2c0b8);
+  --line: light-dark(#dce4dc, #394942);
+  --accent: #c4df83;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; color-scheme: light dark; }
+body { margin: 0; background: var(--site-background); color: var(--site-on-background); font-family: var(--site-font-body); }
+#app { min-height: 100vh; width: 100%; background-color: var(--site-background); color: var(--site-on-background); border-radius: 0; overflow: hidden; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+.container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+.nav { height: 82px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+.brand { display:flex; align-items:center; gap:12px; font-weight:750; letter-spacing:-.04em; }
+.brand-mark { width:38px; height:38px; border-radius:12px; display:grid; place-items:center; background:var(--site-primary); color:var(--site-on-primary); font-family:var(--site-font-heading); font-size:23px; }
+.brand span:last-child { font-size:17px; }
+.nav-links { display:flex; align-items:center; gap:30px; color:var(--muted); font-size:13px; font-weight:600; }
+.nav-links a:hover { color:var(--site-on-background); }
+.nav-cta, .btn-primary { background:var(--site-primary); color:var(--site-on-primary); border:1px solid var(--site-primary); border-radius:999px; padding:13px 20px; font-size:13px; font-weight:700; cursor:pointer; transition:transform .2s, opacity .2s; }
+.nav-cta:hover, .btn-primary:hover { transform:translateY(-2px); opacity:.92; }
+.hero { position:relative; padding:86px 0 92px; background:var(--site-secondary); color:var(--site-on-secondary); overflow:hidden; }
+.hero:after { content:""; position:absolute; width:480px; height:480px; border:1px solid currentColor; border-radius:50%; right:-120px; top:-190px; opacity:calc(.12 * var(--site-decoration-opacity)); box-shadow:0 0 0 48px color-mix(in srgb, currentColor 7%, transparent), 0 0 0 96px color-mix(in srgb, currentColor 4%, transparent); pointer-events:none; }
+.hero-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:60px; align-items:center; position:relative; z-index:1; }
+.eyebrow { display:inline-flex; align-items:center; gap:9px; text-transform:uppercase; letter-spacing:.14em; font-size:10px; font-weight:800; }
+.eyebrow:before { content:""; width:23px; height:1px; background:currentColor; }
+h1,h2,h3 { font-family:var(--site-font-heading); font-weight:500; letter-spacing:-.045em; }
+h1 { font-size:calc(clamp(48px, 6.3vw, 78px) * var(--site-heading-scale)); line-height:.99; margin:25px 0 22px; max-width:700px; }
+.hero-copy { color:color-mix(in srgb, var(--site-on-secondary) 78%, transparent); font-size:16px; line-height:1.8; max-width:550px; }
+.hero-actions { display:flex; gap:12px; align-items:center; margin-top:32px; flex-wrap:wrap; }
+.btn-light { background:transparent; border:1px solid color-mix(in srgb, var(--site-on-secondary) 35%, transparent); color:var(--site-on-secondary); border-radius:999px; padding:13px 20px; font-size:13px; font-weight:700; }
+.hero-note { margin-top:28px; color:color-mix(in srgb, var(--site-on-secondary) 65%, transparent); font-size:11px; }
+.hero-card { background:var(--surface); color:var(--site-on-background); border:1px solid var(--line); border-radius:calc(22px * var(--site-radius-scale)); padding:30px; box-shadow:0 24px 70px #173a3018; transform:rotate(1.5deg); }
+.card-top { display:flex; justify-content:space-between; align-items:center; font-size:11px; color:var(--muted); }
+.status-dot { width:8px; height:8px; border-radius:50%; background:#78a85d; display:inline-block; margin-right:7px; }
+.hero-card h3 { font-size:28px; margin:27px 0 8px; }
+.hero-card p { font-size:12px; color:var(--muted); line-height:1.7; }
+.progress-row { display:flex; justify-content:space-between; font-size:11px; margin:23px 0 9px; }
+.progress { height:6px; background:var(--surface-soft); border-radius:20px; overflow:hidden; }
+.progress span { display:block; height:100%; width:72%; background:var(--site-primary); border-radius:20px; }
+.mini-list { display:grid; gap:13px; margin-top:24px; }
+.mini-item { display:flex; gap:11px; align-items:center; font-size:12px; }
+.check { width:21px; height:21px; display:grid; place-items:center; border-radius:50%; background:var(--site-secondary); color:var(--site-on-secondary); font-size:11px; }
+.section { padding:92px 0; }
+.section-head { max-width:650px; margin-bottom:42px; }
+.section-head h2 { font-size:calc(clamp(36px, 4.5vw, 54px) * var(--site-heading-scale)); line-height:1.04; margin:17px 0; }
+.section-head p { color:var(--muted); line-height:1.8; font-size:14px; }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.service { padding:27px; border:1px solid var(--line); border-radius:calc(17px * var(--site-radius-scale)); background:var(--surface); min-height:220px; }
+.service-icon { width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:var(--surface-soft); font-size:18px; }
+.service h3 { font-size:24px; margin:24px 0 10px; }
+.service p { font-size:12px; line-height:1.8; color:var(--muted); margin:0; }
+.approach { background:var(--site-primary); color:var(--site-on-primary); }
+.approach-grid { display:grid; grid-template-columns:.9fr 1.1fr; gap:80px; align-items:start; }
+.approach .section-head { margin:0; }
+.approach .section-head p { color:color-mix(in srgb, var(--site-on-primary) 70%, transparent); }
+.steps { display:grid; }
+.step { display:grid; grid-template-columns:48px 1fr; gap:18px; padding:20px 0; border-bottom:1px solid color-mix(in srgb, var(--site-on-primary) 20%, transparent); }
+.step-num { font-family:var(--site-font-heading); font-size:25px; color:var(--accent); }
+.step h3 { font-family:var(--site-font-body); font-size:14px; font-weight:700; letter-spacing:0; margin:2px 0 7px; }
+.step p { font-size:12px; line-height:1.7; color:color-mix(in srgb, var(--site-on-primary) 70%, transparent); margin:0; }
+.contact-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:70px; align-items:start; }
+.contact-copy h2 { font-size:calc(48px * var(--site-heading-scale)); line-height:1.02; margin:18px 0; }
+.contact-copy p { color:var(--muted); font-size:13px; line-height:1.8; }
+.contact-detail { margin-top:27px; padding-top:20px; border-top:1px solid var(--line); font-size:12px; color:var(--muted); }
+.form-card { padding:30px; background:var(--surface); border:1px solid var(--line); border-radius:calc(20px * var(--site-radius-scale)); }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.field { display:grid; gap:7px; margin-bottom:16px; }
+.field.full { grid-column:1/-1; }
+label { font-size:11px; font-weight:700; }
+input,select,textarea { width:100%; border:1px solid var(--line); background:var(--site-background); color:var(--site-on-background); border-radius:9px; padding:12px 13px; font-size:12px; outline:none; }
+input:focus,select:focus,textarea:focus { border-color:var(--site-primary); box-shadow:0 0 0 3px color-mix(in srgb, var(--site-primary) 12%, transparent); }
+textarea { min-height:110px; resize:vertical; }
+.form-foot { display:flex; align-items:center; justify-content:space-between; gap:15px; flex-wrap:wrap; }
+.form-hint { font-size:10px; color:var(--muted); }
+#form-message { display:none; margin-top:15px; font-size:12px; line-height:1.6; padding:12px; border-radius:9px; background:var(--surface-soft); }
+.footer { border-top:1px solid var(--line); padding:25px 0; }
+.footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; color:var(--muted); font-size:10px; }
+.footer strong { color:var(--site-on-background); }
+@media (prefers-color-scheme: dark) { .hero-card { box-shadow:none; } }
+@media(max-width:760px) {
+ .container { width:min(100% - 34px, 560px); }
+ .nav { height:70px; }
+ .nav-links { display:none; }
+ .hero { padding:66px 0; }
+ .hero-grid,.approach-grid,.contact-grid { grid-template-columns:1fr; gap:38px; }
+ .hero-card { max-width:440px; transform:none; }
+ .section { padding:68px 0; }
+ .services-grid { grid-template-columns:1fr 1fr; }
+ .approach-grid { gap:25px; }
+ .contact-grid { gap:28px; }
+}
+@media(max-width:480px) {
+ .services-grid,.form-grid { grid-template-columns:1fr; }
+ .field.full { grid-column:auto; }
+ .nav-cta { padding:11px 14px; font-size:11px; }
+ .brand span:last-child { font-size:14px; }
+ .hero-actions { align-items:stretch; flex-direction:column; }
+ .hero-actions a { text-align:center; }
+ .footer-inner { align-items:flex-start; flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="container nav">
+    <a class="brand" href="#top" aria-label="ResearchBridge Solutions home"><span class="brand-mark">R</span><span>ResearchBridge <span style="font-weight:450">Solutions</span></span></a>
+    <nav class="nav-links" aria-label="Main navigation"><a href="#services">Services</a><a href="#approach">Our approach</a><a href="#about">About</a></nav>
+    <a class="nav-cta" href="#contact">Discuss your project ↗</a>
+  </header>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Research & academic support</div>
+          <h1>Good research starts with a clear direction.</h1>
+          <p class="hero-copy">Practical, thoughtful support for researchers and students. From shaping a research question to making sense of data, we help you move forward with confidence.</p>
+          <div class="hero-actions"><a class="btn-primary" href="#contact">Tell us about your project ↗</a><a class="btn-light" href="#services">Explore our services</a></div>
+          <div class="hero-note">Clear communication · Careful methods · Reliable collaboration</div>
+        </div>
+        <aside class="hero-card" aria-label="Research project overview illustration">
+          <div class="card-top"><span>PROJECT WORKSPACE</span><span><i class="status-dot"></i>In progress</span></div>
+          <h3>From question<br>to evidence.</h3>
+          <p>A considered process keeps the research focused, transparent, and manageable.</p>
+          <div class="progress-row"><span>Research roadmap</span><strong>72%</strong></div>
+          <div class="progress"><span></span></div>
+          <div class="mini-list"><div class="mini-item"><span class="check">✓</span> Define the research question</div><div class="mini-item"><span class="check">✓</span> Review relevant literature</div><div class="mini-item"><span class="check">↗</span> Analyse and interpret findings</div></div>
+        </aside>
+      </div>
+    </section>
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">What we do</div><h2>Support for every stage of the research process.</h2><p>Whether you are planning a project, working through a dataset, or refining a manuscript, our support is shaped around your objectives and your institution's requirements.</p></div>
+        <div class="services-grid">
+          <article class="service"><div class="service-icon">✳</div><h3>Thesis development</h3><p>Research planning, chapter structure, literature review guidance, methodology development, and academic editing.</p></article>
+          <article class="service"><div class="service-icon">▥</div><h3>Data analysis</h3><p>Support with data preparation, statistical analysis, visualisation, interpretation, and clear reporting of results.</p></article>
+          <article class="service"><div class="service-icon">⌘</div><h3>Coding & implementation</h3><p>Research-oriented programming, reproducible workflows, debugging, and technical implementation support.</p></article>
+          <article class="service"><div class="service-icon">⌕</div><h3>Literature reviews</h3><p>Help organising scholarly sources, identifying themes, evaluating evidence, and building a coherent review.</p></article>
+          <article class="service"><div class="service-icon">✎</div><h3>Research papers</h3><p>Manuscript structuring, language refinement, formatting, reference checks, and publication-readiness guidance.</p></article>
+          <article class="service"><div class="service-icon">◎</div><h3>Research consultation</h3><p>One-to-one guidance to clarify research questions, select suitable methods, and plan the next steps.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section approach" id="approach">
+      <div class="container approach-grid">
+        <div class="section-head"><div class="eyebrow">How we work</div><h2>A thoughtful process. No guesswork.</h2><p>Every project begins with understanding the research, the expectations, and the work already completed. We agree on a realistic scope before moving ahead.</p></div>
+        <div class="steps">
+          <div class="step"><div class="step-num">01</div><div><h3>Understand the brief</h3><p>We review your topic, university guidelines, dataset, current progress, and intended outcome.</p></div></div>
+          <div class="step"><div class="step-num">02</div><div><h3>Agree on a clear plan</h3><p>You receive a proposed scope, milestones, estimated timeline, and quotation before work begins.</p></div></div>
+          <div class="step"><div class="step-num">03</div><div><h3>Work collaboratively</h3><p>We provide structured guidance and technical support, with communication at agreed milestones.</p></div></div>
+          <div class="step"><div class="step-num">04</div><div><h3>Review and refine</h3><p>We check the agreed deliverables against the brief and help clarify any outstanding questions.</p></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="about">
+      <div class="container" style="max-width:760px;text-align:center">
+        <div class="eyebrow" style="justify-content:center">Our principles</div>
+        <div class="section-head" style="margin:18px auto 0"><h2>Research should be rigorous, understandable, and responsible.</h2><p>ResearchBridge Solutions aims to make complex academic and technical work easier to navigate. We value transparent methods, accurate reporting, confidentiality, and work that follows your institution's academic integrity policies.</p></div>
+      </div>
+    </section>
+    <section class="section" id="contact" style="padding-top:35px">
+      <div class="container contact-grid">
+        <div class="contact-copy"><div class="eyebrow">Start a conversation</div><h2>Tell us what you're working on.</h2><p>Share a few details about your project. We'll review the requirements and get back to you with the next steps, proposed scope, estimated cost, and timeline.</p><div class="contact-detail"><strong style="color:var(--site-on-background)">ResearchBridge Solutions</strong><br>Research & Academic Support Services<br><br><strong style="color:var(--site-on-background)">Official email</strong><br><a href="mailto:hoceinsadaqat005@gmail.com">✉ hoceinsadaqat005@gmail.com</a></div></div>
+        <form class="form-card" id="enquiry-form">
+          <div class="form-grid">
+            <div class="field"><label for="name">Your name</label><input id="name" name="name" placeholder="Full name" required></div>
+            <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+            <div class="field"><label for="university">University / institution</label><input id="university" name="university" placeholder="e.g. SZABIST"></div>
+            <div class="field"><label for="service">Support needed</label><select id="service" name="service" required><option value="">Select a service</option><option>Thesis development</option><option>Data analysis</option><option>Coding & implementation</option><option>Literature review</option><option>Research paper preparation</option><option>Research consultation</option><option>Other</option></select></div>
+            <div class="field full"><label for="details">Project details and current progress</label><textarea id="details" name="details" placeholder="Tell us about your topic, dataset, guidelines, work completed, and any technical requirements..."></textarea></div>
+            <div class="field full"><label for="deadline">Expected submission deadline</label><input id="deadline" name="deadline" type="date"></div>
+          </div>
+          <div class="form-foot"><span class="form-hint">Your email app will open with your enquiry addressed to our official email. Review and send it to contact us.</span><button class="btn-primary" type="submit">Email your enquiry ↗</button></div>
+          <div id="form-message" role="status"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><div><strong>ResearchBridge Solutions</strong> · Research & Academic Support Services</div><div><a href="mailto:hoceinsadaqat005@gmail.com">hoceinsadaqat005@gmail.com</a> · © <span id="year">2026</span> ResearchBridge Solutions. All rights reserved.</div></div></footer>
+</div>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('enquiry-form').addEventListener('submit', function (event) {
+  event.preventDefault();
+  const form = new FormData(event.currentTarget);
+  const fields = ['name', 'email', 'university', 'service', 'details', 'deadline'];
+  const labels = { name: 'Name', email: 'Email', university: 'University', service: 'Service', details: 'Project details', deadline: 'Deadline' };
+  const body = fields.map(key => labels[key] + ': ' + (form.get(key) || 'Not provided')).join('\n\n');
+  const subject = encodeURIComponent('Research enquiry from ' + form.get('name'));
+  const message = document.getElementById('form-message');
+  message.style.display = 'block';
+  message.textContent = 'Your enquiry is ready in your email app. Please review the details and press Send.';
+  window.location.href = 'mailto:hoceinsadaqat005@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
