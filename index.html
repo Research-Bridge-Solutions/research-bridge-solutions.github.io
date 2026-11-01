@@ -99,10 +99,29 @@ textarea { min-height:110px; resize:vertical; }
 .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; color:var(--muted); font-size:10px; }
 .footer strong { color:var(--site-on-background); }
 @media (prefers-color-scheme: dark) { .hero-card { box-shadow:none; } }
+/* Keep the layout comfortable on narrow screens and prevent long text from causing overflow. */
+img, svg, video, canvas { max-width:100%; height:auto; }
+.container, .hero-grid > *, .approach-grid > *, .contact-grid > * { min-width:0; }
+body { overflow-x:hidden; }
+button, a, input, select, textarea { -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:3px solid #8baa69; outline-offset:3px; }
+@media(max-width:360px) {
+ h1 { font-size:clamp(38px, 12vw, 48px); }
+ .nav-cta { display:none; }
+ .hero-card, .form-card { padding:22px; }
+ .service { padding:21px; }
+ .card-top { gap:12px; flex-wrap:wrap; }
+ .mini-item { align-items:flex-start; }
+}
 @media(max-width:760px) {
  .container { width:min(100% - 34px, 560px); }
- .nav { height:70px; }
+ .nav { height:70px; position:relative; z-index:5; gap:10px; }
  .nav-links { display:none; }
+ .nav-links.is-open { display:flex; position:absolute; top:calc(100% - 2px); left:0; right:0; flex-direction:column; align-items:stretch; gap:0; padding:8px 16px; background:#ffffff; color:#172b27; border:1px solid var(--line); border-radius:14px; box-shadow:0 12px 30px #173a3018; z-index:10; }
+ .nav-links.is-open a { padding:13px 4px; border-bottom:1px solid var(--line); }
+ .nav-links.is-open a:last-child { border-bottom:0; }
+ .nav-toggle { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; flex:0 0 40px; border:1px solid var(--line); border-radius:50%; background:#ffffff; color:var(--site-primary); font-size:20px; cursor:pointer; }
+ .nav-cta { padding:10px 12px; font-size:10px; white-space:nowrap; }
  .hero { padding:66px 0; }
  .hero-grid,.approach-grid,.contact-grid { grid-template-columns:1fr; gap:38px; }
  .hero-card { max-width:440px; transform:none; }
@@ -112,6 +131,13 @@ textarea { min-height:110px; resize:vertical; }
  .contact-grid { gap:28px; }
 }
 @media(max-width:480px) {
+ .container { width:calc(100% - 28px); }
+ .nav { gap:8px; }
+ .brand { gap:7px; min-width:0; }
+ .brand-mark { width:34px; height:34px; flex:0 0 34px; }
+ .brand span:last-child { font-size:12px; white-space:nowrap; }
+ .nav-cta { padding:9px 10px; font-size:9px; }
+ .nav-toggle { width:36px; height:36px; flex-basis:36px; }
  .services-grid,.form-grid { grid-template-columns:1fr; }
  .field.full { grid-column:auto; }
  .nav-cta { padding:11px 14px; font-size:11px; }
@@ -126,7 +152,8 @@ textarea { min-height:110px; resize:vertical; }
 <div id="app">
   <header class="container nav">
     <a class="brand" href="#top" aria-label="ResearchBridge Solutions home"><span class="brand-mark">R</span><span>ResearchBridge <span style="font-weight:450">Solutions</span></span></a>
-    <nav class="nav-links" aria-label="Main navigation"><a href="#services">Services</a><a href="#approach">Our approach</a><a href="#about">About</a></nav>
+    <nav class="nav-links" id="site-navigation" aria-label="Main navigation"><a href="#services">Services</a><a href="#approach">Our approach</a><a href="#about">About</a></nav>
+    <button class="nav-toggle" type="button" aria-label="Open navigation menu" aria-controls="site-navigation" aria-expanded="false">☰</button>
     <a class="nav-cta" href="#contact">Discuss your project ↗</a>
   </header>
   <main id="top">
@@ -181,7 +208,7 @@ textarea { min-height:110px; resize:vertical; }
     </section>
     <section class="section" id="contact" style="padding-top:35px">
       <div class="container contact-grid">
-        <div class="contact-copy"><div class="eyebrow">Start a conversation</div><h2>Tell us what you're working on.</h2><p>Share a few details about your project. We'll review the requirements and get back to you with the next steps, proposed scope, estimated cost, and timeline.</p><div class="contact-detail"><strong style="color:var(--site-on-background)">ResearchBridge Solutions</strong><br>Research & Academic Support Services<br><br><strong style="color:var(--site-on-background)">Official email</strong><br><a href="mailto:hoceinsadaqat005@gmail.com">✉ hoceinsadaqat005@gmail.com</a></div></div>
+        <div class="contact-copy"><div class="eyebrow">Start a conversation</div><h2>Tell us what you're working on.</h2><p>Share a few details about your project. We'll review the requirements and get back to you with the next steps, proposed scope, estimated cost, and timeline.</p><div class="contact-detail"><strong style="color:var(--site-on-background)">ResearchBridge Solutions</strong><br>Research & Academic Support Services<br><br><strong style="color:var(--site-on-background)">Official email</strong><br><a href="mailto:researchbridgesolutions@gmail.com">✉ researchbridgesolutions@gmail.com</a></div></div>
         <form class="form-card" id="enquiry-form">
           <div class="form-grid">
             <div class="field"><label for="name">Your name</label><input id="name" name="name" placeholder="Full name" required></div>
@@ -197,10 +224,27 @@ textarea { min-height:110px; resize:vertical; }
       </div>
     </section>
   </main>
-  <footer class="footer"><div class="container footer-inner"><div><strong>ResearchBridge Solutions</strong> · Research & Academic Support Services</div><div><a href="mailto:hoceinsadaqat005@gmail.com">hoceinsadaqat005@gmail.com</a> · © <span id="year">2026</span> ResearchBridge Solutions. All rights reserved.</div></div></footer>
+  <footer class="footer"><div class="container footer-inner"><div><strong>ResearchBridge Solutions</strong> · Research & Academic Support Services</div><div><a href="mailto:researchbridgesolutions@gmail.com">researchbridgesolutions@gmail.com</a> · © <span id="year">2026</span> ResearchBridge Solutions. All rights reserved.</div></div></footer>
 </div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+const menuButton = document.querySelector('.nav-toggle');
+const siteNavigation = document.getElementById('site-navigation');
+menuButton.addEventListener('click', function () {
+  const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+  menuButton.setAttribute('aria-expanded', String(!isOpen));
+  menuButton.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+  menuButton.textContent = isOpen ? '☰' : '×';
+  siteNavigation.classList.toggle('is-open', !isOpen);
+});
+siteNavigation.querySelectorAll('a').forEach(function (link) {
+  link.addEventListener('click', function () {
+    siteNavigation.classList.remove('is-open');
+    menuButton.setAttribute('aria-expanded', 'false');
+    menuButton.setAttribute('aria-label', 'Open navigation menu');
+    menuButton.textContent = '☰';
+  });
+});
 document.getElementById('enquiry-form').addEventListener('submit', function (event) {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
@@ -211,7 +255,7 @@ document.getElementById('enquiry-form').addEventListener('submit', function (eve
   const message = document.getElementById('form-message');
   message.style.display = 'block';
   message.textContent = 'Your enquiry is ready in your email app. Please review the details and press Send.';
-  window.location.href = 'mailto:hoceinsadaqat005@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
+  window.location.href = 'mailto:researchbridgesolutions@gmail.com?subject=' + subject + '&body=' + encodeURIComponent(body);
 });
 </script>
 </body>
